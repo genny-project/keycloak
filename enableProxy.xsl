@@ -10,7 +10,7 @@
     <xsl:template match="//ut:http-listener">
       <xsl:copy>
         <xsl:apply-templates select="@*"/>
-        <xsl:attribute name="redirect-socket">proxy-https</xsl:attribute>   
+        <!--<xsl:attribute name="redirect-socket">proxy-https</xsl:attribute>   -->
         <xsl:attribute name="proxy-address-forwarding">true</xsl:attribute>
         <xsl:apply-templates select="node()"/>
       </xsl:copy>
