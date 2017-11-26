@@ -1,0 +1,8 @@
+pipeline:
+  build-push-docker:
+    image: plugins/docker
+    username: gadadockerbot
+    password: WelcomeToTheHub121!
+    repo: gennyproject/keycloak
+    tag: latest
+
