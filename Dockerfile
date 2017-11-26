@@ -1,7 +1,7 @@
 FROM openjdk:8u141-slim 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 
-ENV KEYCLOAK_VERSION 3.2.1.Final
+ENV KEYCLOAK_VERSION 3.4.0.Final
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
 # Enables signals getting passed from startup script to JVM
@@ -79,7 +79,7 @@ ADD addHttps.xsl /opt/jboss/keycloak/
 #RUN java -jar /usr/share/java/saxon.jar -s:/opt/jboss/keycloak/standalone/configuration/standalone.xml -xsl:/opt/jboss/keycloak/addTruststore.xsl realmName=$REALM_NAME secret=$SECRET -o:/opt/jboss/keycloak/standalone/configuration/standalone.xml
 
 #Set up for proxy
-#RUN xmlstarlet ed -L -u  "//*[local-name()='http-listener']/@redirect-socket" -v "proxy-https"  $JBOSS_HOME/standalone/configuration/standalone.xml
+RUN xmlstarlet ed -L -u  "//*[local-name()='http-listener']/@redirect-socket" -v "proxy-https"  $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN xmlstarlet ed -L -s "//*[local-name()='socket-binding-group']"  -t elem -n "XXXX" -i //XXXX -t attr -n "name" -v "proxy-https" -i //XXXX -t attr -n "port" -v "443" -r //XXXX -v socket-binding $JBOSS_HOME/standalone/configuration/standalone.xml
 

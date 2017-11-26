@@ -16,3 +16,9 @@ else
    /opt/jboss/keycloak/bin/standalone.sh -b 0.0.0.0  -Djava.net.preferIPv6Addresses=false   -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true     $@
 fi
 fi
+#sleep 10
+#/opt/jboss/keycloak/bin/jboss-cli.sh --connect "/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=redirect-socket, value=http)"
+#/opt/jboss/keycloak/bin/jboss-cli.sh --connect "/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=proxy-address-forwarding, value=true)"
+#/opt/jboss/keycloak/bin/jboss-cli.sh --connect "reload"
+
+#/opt/jboss/keycloak/bin/jboss-cli.sh --connect "/subsystem=undertow/server=default-server/http-listener=default:read-resource"
