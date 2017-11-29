@@ -1,0 +1,8 @@
+    {
+        "name": "@@ROLE@@",
+        "description": "@@ROLE@@",
+        "scopeParamRequired": false,
+        "composite": false,
+        "clientRole": false,
+        "containerId": "@@REALM@@"
+      }

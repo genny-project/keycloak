@@ -91,9 +91,18 @@ RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalo
 
 # clean up empty xmlns strings
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone.xml
+#set up default genny theme
+COPY themes $JBOSS_HOME/themes
+
+COPY keycloak-scripts $JBOSS_HOME/scripts 
+ADD execute.sh /
+
 
 RUN chown -Rf jboss:jboss $JBOSS_HOME
 USER jboss
+
+
+
 
 EXPOSE 8080
 
