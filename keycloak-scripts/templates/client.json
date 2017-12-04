@@ -9,11 +9,15 @@
       "secret": "**********",
       "redirectUris": [
         "https://@@REALM_DOMAIN@@/*",
-        "http://@@REALM_DOMAIN@@/*"
+        "http://@@REALM_DOMAIN@@/*",
+        "http://localhost:5000/*",
+        "http://localhost:3000/*"
       ],
       "webOrigins": [
         "https://@@REALM_DOMAIN@@",
-        "http://@@REALM_DOMAIN@@"
+        "http://@@REALM_DOMAIN@@",
+        "http://localhost:5000",
+        "http://localhost:3000"
       ],
       "notBefore": 0,
       "bearerOnly": false,
