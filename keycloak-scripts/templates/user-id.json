@@ -1,0 +1,15 @@
+{
+ "id" : "@@ID@@",
+ "username" : "@@USERNAME@@",
+ "email" : "@@USEREMAIL@@" ,
+ "enabled" : true,
+ "emailVerified" : true,
+ "firstName" : "@@FIRST_NAME@@",
+ "lastName" : "@@LAST_NAME@@",
+ "groups" : [
+   "@@GROUPNAMES@@"
+ ],
+ "realmRoles" : [
+   "@@REALMROLES@@"
+ ]
+}
