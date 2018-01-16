@@ -1,13 +1,12 @@
 FROM openjdk:8u141-slim 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 
-ENV KEYCLOAK_VERSION 3.4.0.Final
+ENV KEYCLOAK_VERSION 3.4.3.Final
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
 ENV LAUNCH_JBOSS_IN_BACKGROUND 1
-ENV MYSQL_PORT_3306_TCP_ADDR 10.64.0.1 
 ENV MYSQL_PORT_3306_TCP_PORT 3306
 
 USER root
