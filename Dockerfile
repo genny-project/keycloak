@@ -1,7 +1,7 @@
 FROM openjdk:8u141-slim 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 
-ENV KEYCLOAK_VERSION 3.4.3.Final
+ENV KEYCLOAK_VERSION 3.4.0.Final
 ENV MYSQLCONNECTOR_VERSION 5.1.41
 
 # Enables signals getting passed from startup script to JVM
