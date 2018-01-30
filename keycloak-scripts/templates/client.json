@@ -17,7 +17,8 @@
         "http://bridge:8088/*",
         "http://rulesservice:8080/*",
         "http://social:8080/*",
-        "http://messages:8080/*"
+        "http://messages:8080/*",
+        "http://alyson/*"
       ],
       "webOrigins": [
         "http://@@REALM_DOMAIN@@",
@@ -29,7 +30,8 @@
         "http://bridge:8088",
         "http://rulesservice:8080",
         "http://social:8080",
-        "http://messages:8080"
+        "http://messages:8080",
+        "http://alyson"
       ],
       "notBefore": 0,
       "bearerOnly": false,
