@@ -1,8 +1,4 @@
-FROM  openjdk:8u151-jre-alpine3.7
-RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.7/main > /etc/apk/repositories; \
-    echo http://mirror.yandex.ru/mirrors/alpine/v3.7/community >> /etc/apk/repositories
-
-
+FROM  openjdk:8u151-jre
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
  
