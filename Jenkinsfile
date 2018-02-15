@@ -4,7 +4,6 @@ pipeline {
 		stage('Build') {
 			steps {
 				sh "./build-docker.sh ${env.BRANCH_NAME}-latest"
-				sh 'mvn -U clean install -DskipTests=true'
 			}
 		}
 		stage('Deploy') {
