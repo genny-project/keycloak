@@ -34,6 +34,7 @@ sed -i ${SEDFIX} -e  's|\*\*\*\*\*\*\*\*\*\*|'"${CLIENT_SECRET}"'|g' client-temp
 sed -i ${SEDFIX} -e  's|\@\@REALM\@\@|'"${REALM}"'|g' client-temp.json
 sed -i ${SEDFIX} -e  's|\@\@CLIENT\@\@|'"${CLIENT}"'|g' client-temp.json
 sed -i ${SEDFIX} -e  's|\@\@REALM_DOMAIN\@\@|'"${REALM_DOMAIN}"'|g' client-temp.json
+sed -i ${SEDFIX} -e  's|\@\@HOSTIP\@\@|'"${HOSTIP}"'|g' client-temp.json
 
 export TKN=$(curl -sS  -X POST "${KEYCLOAK_URL}/auth/realms/master/protocol/openid-connect/token" \
  -H "Content-Type: application/x-www-form-urlencoded" \
