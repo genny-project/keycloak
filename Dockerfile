@@ -64,7 +64,6 @@ RUN mkdir -p /opt/jboss/keycloak/modules/system/layers/base/com/mysql/jdbc/main;
 ADD module.xml /opt/jboss/keycloak/modules/system/layers/base/com/mysql/jdbc/main/
 RUN sed -i "s/mysql-connector-java/mysql-connector-java-$MYSQLCONNECTOR_VERSION/g" $JBOSS_HOME/modules/system/layers/base/com/mysql/jdbc/main/module.xml
 
-
 ############################ Security #############################
 
 ENV REALM_NAME genny 
@@ -83,7 +82,6 @@ RUN xmlstarlet ed -L -u  "//*[local-name()='http-listener']/@redirect-socket" -v
 RUN xmlstarlet ed -L -i "//*[local-name()='http-listener']"  -t attr -n "proxy-address-forwarding" -v "true"  $JBOSS_HOME/standalone/configuration/standalone.xml
 RUN xmlstarlet ed -L -s "//*[local-name()='socket-binding-group']"  -t elem -n "XXXX" -i //XXXX -t attr -n "name" -v "proxy-https" -i //XXXX -t attr -n "port" -v "443" -r //XXXX -v socket-binding $JBOSS_HOME/standalone/configuration/standalone.xml
 
-
 RUN rm /opt/jboss/keycloak/addTruststore.xsl
 RUN rm /opt/jboss/keycloak/addHttps.xsl
 
@@ -92,17 +90,13 @@ RUN sed -i 's/127.0.0.1/0.0.0.0/g' $JBOSS_HOME/standalone/configuration/standalo
 # clean up empty xmlns strings
 RUN sed -i 's/xmlns=\"\"//g' $JBOSS_HOME/standalone/configuration/standalone.xml
 #set up default genny theme
-COPY themes $JBOSS_HOME/themes
+#COPY themes $JBOSS_HOME/themes
 
 COPY keycloak-scripts $JBOSS_HOME/scripts 
 ADD execute.sh /
 
-
 RUN chown -Rf jboss:jboss $JBOSS_HOME
 USER jboss
-
-
-
 
 EXPOSE 8080
 

@@ -14,6 +14,11 @@
                       <xsl:attribute name="name">${env.KEYCLOAK_LOGLEVEL:INFO}</xsl:attribute>
                     </log:level>
                 </log:logger>
+                <log:logger category="org.keycloak.social.user_profile_dump">
+                    <log:level>
+                      <xsl:attribute name="name">${env.KEYCLOAK_LOGLEVEL:DEBUG}</xsl:attribute>
+                    </log:level>
+                </log:logger>
         </xsl:copy>
     </xsl:template>
 

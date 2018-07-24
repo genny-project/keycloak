@@ -80,6 +80,10 @@
   ],
   "defaultGroups": [
     "/users"
-  ]
+  ],
+  "loginTheme": "@@REALM@@",
+  "accountTheme": "@@REALM@@",
+  "adminTheme": "@@REALM@@",
+  "emailTheme": "@@REALM@@"
 }
 
