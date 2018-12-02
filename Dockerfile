@@ -66,7 +66,7 @@ RUN sed -i "s/mysql-connector-java/mysql-connector-java-$MYSQLCONNECTOR_VERSION/
 
 ############################ Security #############################
 
-ENV REALM_NAME genny 
+ENV REALM_NAME internmatch 
 ENV SECRET  password 
 
 ADD addTruststore.xsl /opt/jboss/keycloak/
