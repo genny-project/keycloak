@@ -8,7 +8,7 @@
 
     <xsl:template match="//ds:subsystem/ds:datasources/ds:datasource[@jndi-name='java:jboss/datasources/KeycloakDS']">
         <ds:datasource jndi-name="java:jboss/datasources/KeycloakDS" pool-name="KeycloakDS" enabled="true" use-java-context="true" use-ccm="true">
-            <ds:connection-url>jdbc:mysql://${env.MYSQL_URL}:${env.MYSQL_PORT}/${env.MYSQL_DB:keycloakdb}?failOverReadOnly=false&amp;useSSL=false&amp;maxReconnects=10&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;useUnicode=true&amp;interactiveClient=true</ds:connection-url>
+            <ds:connection-url>jdbc:mysql://${env.MYSQL_URL}:${env.MYSQL_PORT}/${env.MYSQL_DB:keycloak}?${env.MYSQL_OPTS:failOverReadOnly=false&amp;useSSL=false&amp;maxReconnects=10&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;useUnicode=true&amp;interactiveClient=true}</ds:connection-url>
             <ds:driver>mysql</ds:driver>
             <ds:security>
                 <ds:user-name>${env.MYSQL_USERNAME:admin}</ds:user-name>

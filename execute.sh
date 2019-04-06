@@ -7,9 +7,9 @@ TOTAL_WAIT=0
 JBOSS_HOME=/opt/jboss/keycloak
 JBOSS_CLI=$JBOSS_HOME/bin/jboss-cli.sh
 JBOSS_MODE=standalone
-JBOSS_CONFIG=standalone.xml
+JBOSS_CONFIG=standalone-ha.xml
 
-/opt/jboss/keycloak/bin/standalone.sh -b 0.0.0.0 &
+/opt/jboss/keycloak/bin/standalone-ha.sh -b 0.0.0.0 &
 
 until [ $TOTAL_WAIT -gt $MAX_WAIT ]
 do
