@@ -23,7 +23,7 @@ done
 
 echo "PERFORM KEYCLOAK REALM SETUP"
 cd /opt/jboss/keycloak/scripts
-./add-genny.sh
+#./add-genny.sh
 echo "PERFORM KEYCLOAK REALM FINISH"
 
 $JBOSS_CLI -c ":shutdown"
