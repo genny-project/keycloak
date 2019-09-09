@@ -12,9 +12,9 @@ if [[ $IMPORTEXPORT == "EXPORT" ]]; then
 else
 if [[ $IMPORTEXPORT == "IMPORT" ]]; then
    echo "Importing Keycloak";
-   /opt/jboss/keycloak/bin/standalone.sh -b 0.0.0.0  -Djava.net.preferIPv6Addresses=false   -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true    -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/realm/keycloak-data.json -Dkeycloak.migration.strategy=OVERWRITE_EXISTING $@
+   /opt/jboss/keycloak/bin/standalone.sh -Djgroups.bind_addr=127.0.0.1  -b 0.0.0.0  -Djava.net.preferIPv6Addresses=false   -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true    -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/realm/keycloak-data.json -Dkeycloak.migration.strategy=OVERWRITE_EXISTING $@
 else
-   /opt/jboss/keycloak/bin/standalone.sh -b 0.0.0.0  -Djava.net.preferIPv6Addresses=false   -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true     $@
+   /opt/jboss/keycloak/bin/standalone.sh -b 0.0.0.0  -Djgroups.bind_addr=127.0.0.1  -Djava.net.preferIPv6Addresses=false   -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true     $@
 fi
 fi
 
