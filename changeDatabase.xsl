@@ -29,7 +29,8 @@
         <xsl:copy>
             <xsl:apply-templates select="node()|@*"/>
             <ds:driver name="mysql" module="com.mysql.jdbc">
-                <ds:xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</ds:xa-datasource-class>
+                <!--><ds:xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</ds:xa-datasource-class></!-->
+                <ds:xa-datasource-class>com.mysql.cj.jdbc.MysqlXADataSource</ds:xa-datasource-class>
             </ds:driver>
         </xsl:copy>
     </xsl:template>

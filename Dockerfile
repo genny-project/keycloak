@@ -2,8 +2,8 @@ FROM  openjdk:8u151-jre
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
  
-ENV KEYCLOAK_VERSION 7.0.1
-ENV MYSQLCONNECTOR_VERSION 5.1.41
+ENV KEYCLOAK_VERSION 8.0.2
+ENV MYSQLCONNECTOR_VERSION 8.0.19
 
 # Enables signals getting passed from startup script to JVM
 # ensuring clean shutdown when container is stopped.
