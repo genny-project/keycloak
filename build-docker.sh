@@ -6,4 +6,4 @@ else
    version="${1}"
 fi
 
-docker build  --no-cache -t gennyproject/keycloak:${version}   . 
+docker build  --no-cache -t crowtech/keycloak:${version}   . 
