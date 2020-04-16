@@ -7,7 +7,7 @@ else
 fi
 
 
-docker push crowtech/keycloak:"${version}"
-docker tag  crowtech/keycloak:"${version}"  crowtech/keycloak:latest
-docker push crowtech/keycloak:latest
+docker push gennyproject/keycloak:"${version}"
+docker tag  gennyproject/keycloak:"${version}"  gennyproject/keycloak:latest
+docker push gennyproject/keycloak:latest
 
