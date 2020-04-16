@@ -2,7 +2,7 @@ FROM  openjdk:8u151-jre
 
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
  
-ENV KEYCLOAK_VERSION 9.0.0
+ENV KEYCLOAK_VERSION 9.0.3
 ENV MYSQLCONNECTOR_VERSION 8.0.19
 
 # Enables signals getting passed from startup script to JVM
