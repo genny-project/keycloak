@@ -2,8 +2,8 @@
 
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:ut="urn:jboss:domain:undertow:3.0"
-                xmlns:dm="urn:jboss:domain:4.0">
+                xmlns:ut="urn:jboss:domain:undertow:11.0"
+                xmlns:dm="urn:jboss:domain:13.0">
 
     <xsl:output method="xml" indent="yes"/>
 
@@ -19,7 +19,7 @@
     <xsl:template match="//dm:socket-binding-group">
         <xsl:copy>
           <xsl:copy-of select="@*|node()"/>
-          <socket-binding xmlns="urn:jboss:domain:4.0" name="proxy-https" port="443"/>
+          <socket-binding xmlns="urn:jboss:domain:13.0" name="proxy-https" port="443"/>
         </xsl:copy>
     </xsl:template>
 
