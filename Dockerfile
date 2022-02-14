@@ -37,6 +37,12 @@ COPY themes-prod/deployments/mentormatchv8.jar  $JBOSS_HOME/standalone/deploymen
 # set permission for themes
 RUN /opt/jboss/tools/setthemespermission.sh
 
+#Update jgroups UDP send/rx buffer size
+UN echo "# Allow a 25MB UDP receive buffer for JGroups  " > /etc/sysctl.conf
+RUN echo "net.core.rmem_max = 26214400 " >> /etc/sysctl.conf
+RUN echo "# Allow a 1MB UDP send buffer for JGroups " >> /etc/sysctl.conf
+RUN echo "net.core.wmem_max = 1048576" >> /etc/sysctl.conf
+
 RUN echo `date` >  $JBOSS_HOME/build-date
 
 USER 1000
