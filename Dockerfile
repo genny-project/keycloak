@@ -22,17 +22,20 @@ RUN microdnf update -y && microdnf install -y glibc-langpack-en gzip hostname ja
 ADD tools /opt/jboss/tools
 RUN /opt/jboss/tools/build-keycloak.sh
 # themes
-COPY themes-prod/themes/genny          $JBOSS_HOME/themes/
-COPY themes-prod/themes/genny_base     $JBOSS_HOME/themes/
-COPY themes-prod/themes/internmatch    $JBOSS_HOME/themes/
-COPY themes-prod/themes/pcss           $JBOSS_HOME/themes/
-COPY themes-prod/themes/stt            $JBOSS_HOME/themes/
-COPY themes-prod/themes/sttNew         $JBOSS_HOME/themes/
-COPY themes-prod/themes/mentormatch    $JBOSS_HOME/themes/
-COPY themes-prod/themes/mentormatchv3  $JBOSS_HOME/themes/
+COPY themes-prod/themes/genny          $JBOSS_HOME/themes/genny
+COPY themes-prod/themes/genny_base     $JBOSS_HOME/themes/genny_base
+COPY themes-prod/themes/internmatch    $JBOSS_HOME/themes/internmatch
+COPY themes-prod/themes/pcss           $JBOSS_HOME/themes/pcss
+COPY themes-prod/themes/stt            $JBOSS_HOME/themes/stt
+COPY themes-prod/themes/sttNew         $JBOSS_HOME/themes/sttNew
+COPY themes-prod/themes/mentormatch    $JBOSS_HOME/themes/mentormatch
+COPY themes-prod/themes/mentormatchv3  $JBOSS_HOME/themes/mentormatchv3
 
 COPY themes-prod/deployments/mentormatchv7.jar  $JBOSS_HOME/standalone/deployments/
 COPY themes-prod/deployments/mentormatchv8.jar  $JBOSS_HOME/standalone/deployments/
+
+# set permission for themes
+RUN /opt/jboss/tools/setthemespermission.sh
 
 RUN echo `date` >  $JBOSS_HOME/build-date
 
