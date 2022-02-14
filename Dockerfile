@@ -1,57 +1,46 @@
-FROM openjdk:8u265-jre-slim
-
+FROM registry.access.redhat.com/ubi8-minimal
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
- 
-ENV KEYCLOAK_VERSION 11.0.2
+
+ENV KEYCLOAK_VERSION 17.0.0
 ENV JDBC_MYSQL_VERSION 8.0.21
 ENV DB_VENDOR mysql
 
-# Enables signals getting passed from startup script to JVM
-# ensuring clean shutdown when container is stopped.
 ENV LAUNCH_JBOSS_IN_BACKGROUND 1
-# for Nginx and k8s ingress
-ENV PROXY_ADDRESS_FORWARDING TRUE
+ENV PROXY_ADDRESS_FORWARDING false 
 ENV JBOSS_HOME /opt/jboss/keycloak
+ENV LANG en_US.UTF-8
 
-ARG KEYCLOAK_DIST=https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/keycloak-$KEYCLOAK_VERSION.tar.gz
+ARG GIT_REPO
+ARG GIT_BRANCH
+ARG KEYCLOAK_DIST=https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/keycloak-legacy-$KEYCLOAK_VERSION.tar.gz
 
 USER root
 
-RUN mkdir -p /opt/jboss
-RUN echo `date` > /tmp/build-date
+
+RUN microdnf update -y && microdnf install -y glibc-langpack-en gzip hostname java-11-openjdk-headless openssl tar which && microdnf clean all
+
 ADD tools /opt/jboss/tools
+RUN /opt/jboss/tools/build-keycloak.sh
+# themes
+COPY themes-prod/themes/genny          $JBOSS_HOME/themes/
+COPY themes-prod/themes/genny_base     $JBOSS_HOME/themes/
+COPY themes-prod/themes/internmatch    $JBOSS_HOME/themes/
+COPY themes-prod/themes/pcss           $JBOSS_HOME/themes/
+COPY themes-prod/themes/stt            $JBOSS_HOME/themes/
+COPY themes-prod/themes/sttNew         $JBOSS_HOME/themes/
+COPY themes-prod/themes/mentormatch    $JBOSS_HOME/themes/
+COPY themes-prod/themes/mentormatchv3  $JBOSS_HOME/themes/
 
-# Install necessary packages
-RUN /opt/jboss/tools/install-package.sh
+COPY themes-prod/deployments/mentormatchv7.jar  $JBOSS_HOME/standalone/deployments/
+COPY themes-prod/deployments/mentormatchv8.jar  $JBOSS_HOME/standalone/deployments/
 
-#Download Keycloak
-RUN /opt/jboss/tools/download-keycloak.sh
+RUN echo `date` >  $JBOSS_HOME/build-date
 
-
-############################ Database #############################
-RUN /opt/jboss/tools/config-database.sh
-
-########################### Keycloak ##############################
-RUN /opt/jboss/tools/config-keycloak.sh
-
-RUN mkdir -p $JBOSS_HOME/themes
-RUN mkdir -p $JBOSS_HOME/standalone/themes
-RUN mkdir -p /opt/jboss/backup
-#set up default genny theme
-#COPY themes $JBOSS_HOME/themes
-
-COPY keycloak-scripts $JBOSS_HOME/scripts 
-ADD execute.sh /
-
-# add user jboss
-RUN groupadd -r jboss && useradd -d /opt/jboss -r -g jboss  jboss 
-RUN chown -R jboss:jboss /opt/jboss
-
-USER jboss
-WORKDIR /opt/jboss
+USER 1000
 
 EXPOSE 8080
 EXPOSE 8443
 
 ENTRYPOINT [ "/opt/jboss/tools/docker-entrypoint.sh" ]
+
 CMD ["-b", "0.0.0.0"]

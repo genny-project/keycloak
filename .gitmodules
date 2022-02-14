@@ -1,0 +1,3 @@
+[submodule "themes-prod"]
+	path = themes-prod
+	url = git@github.com:genny-project/keycloak-themes.git
