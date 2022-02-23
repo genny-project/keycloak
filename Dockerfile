@@ -1,7 +1,7 @@
 FROM registry.access.redhat.com/ubi8-minimal
 MAINTAINER Adam Crow <acrow@crowtech.com.au>
 
-ENV KEYCLOAK_VERSION 17.0.0
+ENV KEYCLOAK_VERSION 16.1.1
 ENV JDBC_MYSQL_VERSION 8.0.21
 ENV DB_VENDOR mysql
 
@@ -12,7 +12,7 @@ ENV LANG en_US.UTF-8
 
 ARG GIT_REPO
 ARG GIT_BRANCH
-ARG KEYCLOAK_DIST=https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/keycloak-legacy-$KEYCLOAK_VERSION.tar.gz
+ARG KEYCLOAK_DIST=https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/keycloak-$KEYCLOAK_VERSION.tar.gz
 
 USER root
 
