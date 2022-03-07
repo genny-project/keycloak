@@ -29,10 +29,9 @@ COPY themes-prod/themes/pcss           $JBOSS_HOME/themes/pcss
 COPY themes-prod/themes/stt            $JBOSS_HOME/themes/stt
 COPY themes-prod/themes/sttNew         $JBOSS_HOME/themes/sttNew
 COPY themes-prod/themes/mentormatch    $JBOSS_HOME/themes/mentormatch
-COPY themes-prod/themes/mentormatchv3  $JBOSS_HOME/themes/mentormatchv3
+COPY themes-prod/themes/mentormatchv10  $JBOSS_HOME/themes/mentormatchv10
 
-COPY themes-prod/deployments/mentormatchv7.jar  $JBOSS_HOME/standalone/deployments/
-COPY themes-prod/deployments/mentormatchv8.jar  $JBOSS_HOME/standalone/deployments/
+COPY themes-prod/deployments/*.jar  $JBOSS_HOME/standalone/deployments/
 
 # set permission for themes
 RUN /opt/jboss/tools/setthemespermission.sh
