@@ -1,27 +1,21 @@
-FROM registry.access.redhat.com/ubi8-minimal
-MAINTAINER Adam Crow <acrow@crowtech.com.au>
-
-ENV KEYCLOAK_VERSION 17.0.0
-ENV JDBC_MYSQL_VERSION 8.0.21
-ENV DB_VENDOR mysql
-
-ENV LAUNCH_JBOSS_IN_BACKGROUND 1
-ENV PROXY_ADDRESS_FORWARDING false 
-ENV JBOSS_HOME /opt/jboss/keycloak
-ENV LANG en_US.UTF-8
-
-ARG GIT_REPO
-ARG GIT_BRANCH
-ARG KEYCLOAK_DIST=https://github.com/keycloak/keycloak/releases/download/$KEYCLOAK_VERSION/keycloak-legacy-$KEYCLOAK_VERSION.tar.gz
-
-USER root
+#FROM quay.io/keycloak/keycloak:17.0.1 as builder
+#ENV KC_METRICS_ENABLED=true
+#ENV KC_FEATURES="preview, token-exchange, account-api"
+#ENV KC_DB=mysql
+#RUN /opt/keycloak/bin/kc.sh build
+# check config
+#RUN /opt/keycloak/bin/kc.sh show-config
 
 
-RUN microdnf update -y && microdnf install -y glibc-langpack-en gzip hostname java-11-openjdk-headless openssl tar which && microdnf clean all
+FROM quay.io/keycloak/keycloak:17.0.1
+#COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
+WORKDIR /opt/keycloak
 
-ADD tools /opt/jboss/tools
-RUN /opt/jboss/tools/build-keycloak.sh
-# themes
+# for demonstration purposes only, please make sure to use proper certificates in production instead
+RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 -dname "CN=server" -alias server -ext "SAN:c=DNS:localhost,IP:127.0.0.1" -keystore conf/server.keystore
+
+#themes
+ENV JBOSS_HOME=/opt/keycloak
 COPY themes-prod/themes/genny          $JBOSS_HOME/themes/genny
 COPY themes-prod/themes/genny_base     $JBOSS_HOME/themes/genny_base
 COPY themes-prod/themes/internmatch    $JBOSS_HOME/themes/internmatch
@@ -29,27 +23,25 @@ COPY themes-prod/themes/pcss           $JBOSS_HOME/themes/pcss
 COPY themes-prod/themes/stt            $JBOSS_HOME/themes/stt
 COPY themes-prod/themes/sttNew         $JBOSS_HOME/themes/sttNew
 COPY themes-prod/themes/mentormatch    $JBOSS_HOME/themes/mentormatch
-COPY themes-prod/themes/mentormatchv3  $JBOSS_HOME/themes/mentormatchv3
+COPY themes-prod/themes/lojing-theme  $JBOSS_HOME/themes/lojing-theme
 
-COPY themes-prod/deployments/mentormatchv7.jar  $JBOSS_HOME/standalone/deployments/
-COPY themes-prod/deployments/mentormatchv8.jar  $JBOSS_HOME/standalone/deployments/
+#Custom themes packaged in a JAR file should be deployed to the `${kc.home.dir}/providers` directory. 
+#After that, run the `build` command to install them before starting the server.
+COPY themes-prod/deployments/mentormatchv12.jar  $JBOSS_HOME/providers/
 
-# set permission for themes
-RUN /opt/jboss/tools/setthemespermission.sh
+ENV KC_METRICS_ENABLED=true
+ENV KC_HTTP_ENABLED=true
+ENV KC_SHOW_CONFIG=true
+ENV KC_FEATURES="preview, token-exchange, account-api"
+ENV KC_DB=mysql
+RUN /opt/keycloak/bin/kc.sh build
+RUN /opt/keycloak/bin/kc.sh show-config
 
-#Update jgroups UDP send/rx buffer size
-RUN echo "# Allow a 25MB UDP receive buffer for JGroups  " > /etc/sysctl.conf
-RUN echo "net.core.rmem_max = 26214400 " >> /etc/sysctl.conf
-RUN echo "# Allow a 1MB UDP send buffer for JGroups " >> /etc/sysctl.conf
-RUN echo "net.core.wmem_max = 1048576" >> /etc/sysctl.conf
-
-RUN echo `date` >  $JBOSS_HOME/build-date
-
-USER 1000
-
-EXPOSE 8080
-EXPOSE 8443
-
-ENTRYPOINT [ "/opt/jboss/tools/docker-entrypoint.sh" ]
-
-CMD ["-b", "0.0.0.0"]
+ENV KEYCLOAK_ADMIN=admin
+ENV KEYCLOAK_ADMIN_PASSWORD=change_me
+# change these values to point to a running postgres instance
+ENV KC_DB_URL=jdbc:mysql://db/keycloakdb
+ENV KC_DB_USERNAME=genny
+ENV KC_DB_PASSWORD=password
+ENV KC_HOSTNAME=localhost
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
