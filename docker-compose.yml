@@ -1,0 +1,28 @@
+keyckoak:
+        image: gennyproject/keycloak:keycloak17-quarkus
+        links:
+                - db:db
+        environment:
+                - KC_HOSTNAME=keycloak17.gada.io
+                - KEYCLOAK_ADMIN=admin
+                - KEYCLOAK_ADMIN_PASSWORD=change_me
+                - KC_PROXY=passthrough
+                - KEYCLOAK_LOGLEVEL=debug
+                - JAVA_OPTS_APPEND="-Djava.awt.headless=true"
+                - KC_DB_URL=jdbc:mysql://db/keycloakdb
+                - KC_DB_USERNAME=genny
+                - KC_DB_PASSWORD=password 
+        ports:
+                - "9080:8080"
+db:
+        image: mysql:8.0.28
+        restart: always
+        environment:
+                MYSQL_ROOT_PASSWORD: password
+                MYSQL_DATABASE: keycloakdb
+                MYSQL_USER: genny
+                MYSQL_PASSWORD: password
+        volumes:
+                - ./mysqldata:/var/lib/mysql
+        ports:
+                - "3318:3306"
