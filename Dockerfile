@@ -29,6 +29,7 @@ ENV KC_HOSTNAME_STRICT=true
 ENV KC_LOG_LEVEL=info
 ENV KEYCLOAK_ADMIN=admin
 ENV KEYCLOAK_ADMIN_PASSWORD=change_me
+ENV KC_HTTP_RELATIVE_PATH=/auth
 
 RUN /opt/keycloak/bin/kc.sh build
 RUN /opt/keycloak/bin/kc.sh show-config
