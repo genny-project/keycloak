@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:17.0.1
+FROM quay.io/keycloak/keycloak:18.0.2
 WORKDIR /opt/keycloak
 
 # for demonstration purposes only, please make sure to use proper certificates in production instead
