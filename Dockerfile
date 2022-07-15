@@ -6,18 +6,31 @@ RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysi
 
 #themes
 ENV JBOSS_HOME=/opt/keycloak
-COPY themes-prod/themes/genny          $JBOSS_HOME/themes/genny
-COPY themes-prod/themes/genny_base     $JBOSS_HOME/themes/genny_base
-COPY themes-prod/themes/internmatch    $JBOSS_HOME/themes/internmatch
-COPY themes-prod/themes/pcss           $JBOSS_HOME/themes/pcss
-COPY themes-prod/themes/stt            $JBOSS_HOME/themes/stt
-COPY themes-prod/themes/sttNew         $JBOSS_HOME/themes/sttNew
-COPY themes-prod/themes/mentormatch    $JBOSS_HOME/themes/mentormatch
-COPY themes-prod/themes/lojing-theme  $JBOSS_HOME/themes/lojing-theme
+#COPY themes-prod/themes/genny          $JBOSS_HOME/themes/genny
+#COPY themes-prod/themes/genny_base     $JBOSS_HOME/themes/genny_base
+#COPY themes-prod/themes/internmatch    $JBOSS_HOME/themes/internmatch
+#COPY themes-prod/themes/pcss           $JBOSS_HOME/themes/pcss
+#COPY themes-prod/themes/stt            $JBOSS_HOME/themes/stt
+#COPY themes-prod/themes/sttNew         $JBOSS_HOME/themes/sttNew
+#COPY themes-prod/themes/mentormatch    $JBOSS_HOME/themes/mentormatch
+#COPY themes-prod/themes/lojing-theme  $JBOSS_HOME/themes/lojing-theme
 
 #Custom themes packaged in a JAR file should be deployed to the `${kc.home.dir}/providers` directory. 
 #After that, run the `build` command to install them before starting the server.
+COPY themes-prod/deployments/base.jar  $JBOSS_HOME/providers/
+COPY themes-prod/deployments/genny.jar  $JBOSS_HOME/providers/
+COPY themes-prod/deployments/genny_base.jar  $JBOSS_HOME/providers/
+COPY themes-prod/deployments/internmatch.jar  $JBOSS_HOME/providers/
+COPY themes-prod/deployments/lojing-theme.jar $JBOSS_HOME/providers/
+COPY themes-prod/deployments/mentormatch.jar  $JBOSS_HOME/providers/
 COPY themes-prod/deployments/mentormatchv12.jar  $JBOSS_HOME/providers/
+COPY themes-prod/deployments/pcss.jar  $JBOSS_HOME/providers/
+COPY themes-prod/deployments/stt.jar  $JBOSS_HOME/providers/
+COPY themes-prod/deployments/sttNew.jar  $JBOSS_HOME/providers/
+
+# todo
+#COPY themes-prod/deployments/keycloak-preview.jar  $JBOSS_HOME/providers/
+#COPY themes-prod/deployments/keycloak.jar  $JBOSS_HOME/providers/
 
 ENV KC_METRICS_ENABLED=true
 ENV KC_HTTP_ENABLED=true
