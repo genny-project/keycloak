@@ -1,5 +1,5 @@
 keyckoak:
-        image: gennyproject/keycloak:keycloak17-quarkus
+        image: gennyproject/keycloak:keycloak18-quarkus
         links:
                 - db:db
         environment:
@@ -15,7 +15,7 @@ keyckoak:
         ports:
                 - "9080:8080"
 db:
-        image: mysql:8.0.28
+        image: mysql:8.0.29
         restart: always
         environment:
                 MYSQL_ROOT_PASSWORD: password
