@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:18.0.2
+FROM quay.io/keycloak/keycloak:19.0.1
 WORKDIR /opt/keycloak
 
 # for demonstration purposes only, please make sure to use proper certificates in production instead
@@ -33,6 +33,7 @@ COPY themes-prod/deployments/mentormatchv12.jar  $JBOSS_HOME/providers/
 #COPY themes-prod/deployments/keycloak.jar  $JBOSS_HOME/providers/
 
 ENV KC_METRICS_ENABLED=true
+ENV KC_HEALTH_ENABLED=true
 ENV KC_HTTP_ENABLED=true
 ENV KC_SHOW_CONFIG=true
 ENV KC_FEATURES="preview, token-exchange, account-api"
@@ -44,9 +45,17 @@ ENV KEYCLOAK_ADMIN=admin
 ENV KEYCLOAK_ADMIN_PASSWORD=change_me
 ENV KC_HTTP_RELATIVE_PATH=/auth
 
+# cluster 
+ENV KC_CACHE_STACK=tcp
+ENV KC_CACHE=ispn
+
+
+# Install custom providers
+RUN curl -sL https://github.com/aerogear/keycloak-metrics-spi/releases/download/2.5.3/keycloak-metrics-spi-2.5.3.jar -o /opt/keycloak/providers/keycloak-metrics-spi-2.5.3.jar
+
 RUN /opt/keycloak/bin/kc.sh build
 RUN /opt/keycloak/bin/kc.sh show-config
 
 # change these values to point to a running postgres instance
-#ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "--verbose", "start", "--hostname=${KC_HOSTNAME}", "--db-password=${KC_DB_PASSWORD}", "--db-username=${KC_DB_USERNAME}", "--db-url=${KC_DB_URL}", "--proxy=${KC_PROXY}"]
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--hostname=${KC_HOSTNAME}", "--db-password=${KC_DB_PASSWORD}", "--db-username=${KC_DB_USERNAME}", "--db-url=${KC_DB_URL}", "--proxy=${KC_PROXY}"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "--verbose", "start", "--hostname=${KC_HOSTNAME}", "--db-password=${KC_DB_PASSWORD}", "--db-username=${KC_DB_USERNAME}", "--db-url=${KC_DB_URL}", "--proxy=${KC_PROXY}"]
+#ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--hostname=${KC_HOSTNAME}", "--db-password=${KC_DB_PASSWORD}", "--db-username=${KC_DB_USERNAME}", "--db-url=${KC_DB_URL}", "--proxy=${KC_PROXY}", "--hostname-path=${KC_HOSTNAME_PATH}"]
