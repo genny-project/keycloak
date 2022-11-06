@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:19.0.3
+FROM quay.io/keycloak/keycloak:20.0.0
 WORKDIR /opt/keycloak
 
 # for demonstration purposes only, please make sure to use proper certificates in production instead
