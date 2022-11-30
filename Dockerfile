@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:20.0.0
+FROM quay.io/keycloak/keycloak:20.0.1
 WORKDIR /opt/keycloak
 
 # for demonstration purposes only, please make sure to use proper certificates in production instead
@@ -30,7 +30,7 @@ ENV KC_HOSTNAME_STRICT=true
 ENV KC_LOG_LEVEL=info
 ENV KEYCLOAK_ADMIN=admin
 ENV KEYCLOAK_ADMIN_PASSWORD=change_me
-ENV KC_HTTP_RELATIVE_PATH=/auth
+#ENV KC_HTTP_RELATIVE_PATH=/auth
 
 # cluster 
 ENV KC_CACHE_STACK=tcp
